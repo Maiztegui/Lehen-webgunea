@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Lehen_webgunea.Models;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 
 namespace Lehen_webgunea.Data
 {
@@ -8,5 +10,9 @@ namespace Lehen_webgunea.Data
         {
             
         }
+
+        public DbSet<Category> Categories { get; set; }
+
+        
     }
 }

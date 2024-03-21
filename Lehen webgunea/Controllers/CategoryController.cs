@@ -33,6 +33,7 @@ namespace Lehen_webgunea.Controllers
 
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -46,25 +47,25 @@ namespace Lehen_webgunea.Controllers
                 return NotFound();
 
             }
-            Category? categoryfromDB = _db.Categories.Find(id);
+            Category categoryFromDB = _db.Categories.Find(id);
             //Category? categoryfromDB1 = _db.Categories.FirstOrDefault(u=>u.Category21Id==id);
             //Category? categoryfromDB2 = _db.Categories.Where(u => u.Category21Id == id).FirstOrDefault();
-            if (categoryfromDB == null)
+            if (categoryFromDB == null)
             {
                 return NotFound();
             }
-            return View(categoryfromDB);
+            return View(categoryFromDB);
         }
         [HttpPost]
         public IActionResult Edit(Category obj)
         {
            
-
             if (ModelState.IsValid)
             {
 
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -77,13 +78,13 @@ namespace Lehen_webgunea.Controllers
                 return NotFound();
 
             }
-            Category? categoryfromDB = _db.Categories.Find(id);
+            Category? categoryFromDB = _db.Categories.Find(id);
            
-            if (categoryfromDB == null)
+            if (categoryFromDB == null)
             {
                 return NotFound();
             }
-            return View(categoryfromDB);
+            return View(categoryFromDB);
         }
         [HttpPost,ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
@@ -95,6 +96,7 @@ namespace Lehen_webgunea.Controllers
             }
             _db.Categories.Remove(obj);
             _db.SaveChanges();
+            TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
         }
     }

@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Lehen_webgunea.DataAccess.Data;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Lehen_webgunea.Migrations
+namespace Lehen_webgunea.DataAccess.Migrations
 {
+    
     /// <inheritdoc />
     public partial class AddCategoryTableToDb : Migration
     {

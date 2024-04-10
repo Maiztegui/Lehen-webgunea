@@ -1,4 +1,5 @@
-﻿using Lehen_webgunea.Data;
+﻿
+using Lehen_webgunea.DataAccess.Data;
 using Lehen_webgunea.Models;
 using Microsoft.AspNetCore.Mvc;
 

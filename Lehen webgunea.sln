@@ -5,11 +5,11 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lehen_webgunea", "Lehen webgunea\Lehen_webgunea.csproj", "{151F6F8A-085D-45F5-9D4F-58DC15DE9C71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lehen_webgunea.DataAccess", "Lehen_webgunea.DataAccess\Lehen_webgunea.DataAccess.csproj", "{B3A4B4E4-7F37-4BFC-92EE-93E33532232A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lehen_webgunea.DataAccess", "Lehen_webgunea.DataAccess\Lehen_webgunea.DataAccess.csproj", "{B3A4B4E4-7F37-4BFC-92EE-93E33532232A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lehen_webgunea.Models", "Lehen_webgunea.Models\Lehen_webgunea.Models.csproj", "{BDC95A5F-2187-42C7-9C39-8C9957EB502A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lehen_webgunea.Models", "Lehen_webgunea.Models\Lehen_webgunea.Models.csproj", "{BDC95A5F-2187-42C7-9C39-8C9957EB502A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lehen_webgunea.Utility", "Lehen_webgunea.Utility\Lehen_webgunea.Utility.csproj", "{E6BA6225-7864-4F94-9A8A-CC8D6BF07C34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lehen_webgunea.Utility", "Lehen_webgunea.Utility\Lehen_webgunea.Utility.csproj", "{E6BA6225-7864-4F94-9A8A-CC8D6BF07C34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 
-namespace Lehen_webgunea.Data
+namespace Lehen_webgunea.DataAccess.Data
 {
     public class ApplicationDbContext: DbContext
     {

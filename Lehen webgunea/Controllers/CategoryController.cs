@@ -8,14 +8,14 @@ namespace Lehen_webgunea.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepo;
-        public CategoryController(ICategoryRepository db )
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork unitOfWork )
         {
-            _categoryRepo = db;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
         public IActionResult Create ()
@@ -33,8 +33,8 @@ namespace Lehen_webgunea.Controllers
             if (ModelState.IsValid)
             {
 
-                _categoryRepo.Add(obj);
-                //_categoryRepo.Save();
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
@@ -49,7 +49,7 @@ namespace Lehen_webgunea.Controllers
                 return NotFound();
 
             }
-            Category? categoryFromDB = _categoryRepo.Get(u => u.Category21Id == id);
+            Category? categoryFromDB = _unitOfWork.Category.Get(u => u.Category21Id == id);
             //Category? categoryfromDB1 = _db.Categories.FirstOrDefault(u=>u.Category21Id==id);
             //Category? categoryfromDB2 = _db.Categories.Where(u => u.Category21Id == id).FirstOrDefault();
             if (categoryFromDB == null)
@@ -65,8 +65,8 @@ namespace Lehen_webgunea.Controllers
             if (ModelState.IsValid)
             {
 
-                _categoryRepo.Add(obj);
-                //_categoryRepo.Save();
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }
@@ -80,7 +80,7 @@ namespace Lehen_webgunea.Controllers
                 return NotFound();
 
             }
-            Category? categoryFromDB = _categoryRepo.Get(u => u.Category21Id == id);
+            Category? categoryFromDB = _unitOfWork.Category.Get(u => u.Category21Id == id);
            
             if (categoryFromDB == null)
             {
@@ -91,13 +91,13 @@ namespace Lehen_webgunea.Controllers
         [HttpPost,ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category obj = _categoryRepo.Get(u => u.Category21Id == id);
+            Category obj = _unitOfWork.Category.Get(u => u.Category21Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _categoryRepo.Remove(obj);
-            //_categoryRepo.Save();
+            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
         }

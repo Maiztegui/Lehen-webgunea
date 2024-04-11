@@ -1,5 +1,6 @@
 ﻿
 using Lehen_webgunea.DataAccess.Data;
+using Lehen_webgunea.DataAccess.Repository.IRepository;
 using Lehen_webgunea.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,14 +8,14 @@ namespace Lehen_webgunea.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db )
+        private readonly ICategoryRepository _categoryRepo;
+        public CategoryController(ICategoryRepository db )
         {
-            _db = db;
+            _categoryRepo = db;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList();
+            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
             return View(objCategoryList);
         }
         public IActionResult Create ()
@@ -32,8 +33,8 @@ namespace Lehen_webgunea.Controllers
             if (ModelState.IsValid)
             {
 
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _categoryRepo.Add(obj);
+                _categoryRepo.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
@@ -48,7 +49,7 @@ namespace Lehen_webgunea.Controllers
                 return NotFound();
 
             }
-            Category categoryFromDB = _db.Categories.Find(id);
+            Category? categoryFromDB = _categoryRepo.Get(u => u.Category21Id == id);
             //Category? categoryfromDB1 = _db.Categories.FirstOrDefault(u=>u.Category21Id==id);
             //Category? categoryfromDB2 = _db.Categories.Where(u => u.Category21Id == id).FirstOrDefault();
             if (categoryFromDB == null)
@@ -64,8 +65,8 @@ namespace Lehen_webgunea.Controllers
             if (ModelState.IsValid)
             {
 
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _categoryRepo.Add(obj);
+                _categoryRepo.Save();
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }

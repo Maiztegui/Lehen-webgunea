@@ -34,7 +34,7 @@ namespace Lehen_webgunea.Controllers
             {
 
                 _categoryRepo.Add(obj);
-                _categoryRepo.Save();
+                //_categoryRepo.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
@@ -66,7 +66,7 @@ namespace Lehen_webgunea.Controllers
             {
 
                 _categoryRepo.Add(obj);
-                _categoryRepo.Save();
+                //_categoryRepo.Save();
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }
@@ -97,7 +97,7 @@ namespace Lehen_webgunea.Controllers
                 return NotFound();
             }
             _categoryRepo.Remove(obj);
-            _categoryRepo.Save();
+            //_categoryRepo.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
         }

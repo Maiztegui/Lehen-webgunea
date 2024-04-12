@@ -43,6 +43,7 @@ namespace Lehen_webgunea.Models
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category category { get; set; }  
+        public string ImageUrl { get; set; }    
 
     }
 }

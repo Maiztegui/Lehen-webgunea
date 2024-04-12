@@ -2,6 +2,7 @@
 using Lehen_webgunea.DataAccess.Repository.IRepository;
 using Lehen_webgunea.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Lehen_webgunea.Areas.Admin.Controllers
 {
@@ -17,6 +18,12 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category
+                .GetAll().Select(u=> new SelectListItem
+            {
+                    Text = u.Name,
+                    Value = u.ToString(),
+            });
             return View(objProductList);
         }
         public IActionResult Create()

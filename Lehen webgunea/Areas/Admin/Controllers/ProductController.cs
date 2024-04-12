@@ -29,7 +29,7 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
                     Text = u.Name,
                     Value = u.ToString(),
                 });
-            ViewBag.CategoryList = CategoryList;
+            ViewData["CategoryList"] = CategoryList;
 
             return View();
         }

@@ -65,7 +65,7 @@ namespace Lehen_webgunea.Controllers
             if (ModelState.IsValid)
             {
 
-                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Category.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");

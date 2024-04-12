@@ -2,8 +2,9 @@ using Lehen_webgunea.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Lehen_webgunea.Controllers
+namespace Lehen_webgunea.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

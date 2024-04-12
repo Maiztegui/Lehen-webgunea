@@ -1,15 +1,16 @@
-﻿
-using Lehen_webgunea.DataAccess.Data;
+﻿using Lehen_webgunea.DataAccess.Data;
 using Lehen_webgunea.DataAccess.Repository.IRepository;
 using Lehen_webgunea.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Lehen_webgunea.Controllers
+namespace Lehen_webgunea.Areas.Admin.Controllers
 {
+
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CategoryController(IUnitOfWork unitOfWork )
+        public CategoryController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -18,7 +19,7 @@ namespace Lehen_webgunea.Controllers
             List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
-        public IActionResult Create ()
+        public IActionResult Create()
         {
             return View();
         }
@@ -42,9 +43,9 @@ namespace Lehen_webgunea.Controllers
         }
 
 
-        public IActionResult Edit(int? id )
+        public IActionResult Edit(int? id)
         {
-            if (id==null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
 
@@ -61,7 +62,7 @@ namespace Lehen_webgunea.Controllers
         [HttpPost]
         public IActionResult Edit(Category obj)
         {
-           
+
             if (ModelState.IsValid)
             {
 
@@ -81,14 +82,14 @@ namespace Lehen_webgunea.Controllers
 
             }
             Category? categoryFromDB = _unitOfWork.Category.Get(u => u.Category21Id == id);
-           
+
             if (categoryFromDB == null)
             {
                 return NotFound();
             }
             return View(categoryFromDB);
         }
-        [HttpPost,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
             Category obj = _unitOfWork.Category.Get(u => u.Category21Id == id);

@@ -63,6 +63,18 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
                     // now we need to navigate to our product path
                     string productPath = Path.Combine(wwwRootPath, @"images\product");// this will give us the path inside the product folder were we have to uplode the file
 
+                    if (!string.IsNullOrEmpty(productVM.Product.ImageUrl)) 
+                    {
+                        //delete the old image 
+                        var oldImagePath = 
+                            Path.Combine(wwwRootPath, productVM.Product.ImageUrl.TrimStart('\\'));
+
+                        if(System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
                     {
                         file.CopyTo(fileStream); // this will copy the file in the new location that we added

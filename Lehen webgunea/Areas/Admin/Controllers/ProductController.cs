@@ -1,6 +1,7 @@
 ﻿using Lehen_webgunea.DataAccess.Data;
 using Lehen_webgunea.DataAccess.Repository.IRepository;
 using Lehen_webgunea.Models;
+using Lehen_webgunea.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -11,9 +12,11 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ProductController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -21,64 +24,73 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
             
             return View(objProductList);
         }
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
-            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category
-                .GetAll().Select(u => new SelectListItem
+            
+            ProductVM productVM = new()
+            {
+                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
-                    Value = u.ToString(),
-                });
-            ViewData["CategoryList"] = CategoryList;
+                    Value = u.CategoryId.ToString(),
+                }),
+            Product = new Product()
+            };
+            if(id == null || id == 0)
+            {
+                //create
+                return View(productVM);
+            }
+            else
+            {
+                //update
+                productVM.Product = _unitOfWork.Product.Get(u => u.CategoryId == id);
+                return View(productVM);
 
-            return View();
+            }
+
         }
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Upsert(ProductVM productVM , IFormFile? file)
         {
            
             if (ModelState.IsValid)
             {
+                string wwwRootPath = _webHostEnvironment.WebRootPath // this path gave us the root folder
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName); //this will give us a ramdom name to our file 
+                    // now we need to navigate to our product path
+                    string productPath = Path.Combine(wwwRootPath, @"images\product");// this will give us the path inside the product folder were we have to uplode the file
 
-                _unitOfWork.Product.Add(obj);
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream); // this will copy the file in the new location that we added
+                    }
+
+                    productVM.Product.ImageUrl = @"\images\product\" + fileName;
+                }
+                // we are adding the product, saveing it 
+                _unitOfWork.Product.Add(productVM.Product);
                 _unitOfWork.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                productVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.CategoryId.ToString(),
+                });
+                return View(productVM);
+            }
+
+            
         }
 
 
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-
-            }
-            Product? productFromDB = _unitOfWork.Product.Get(u => u.Id == id);
-            //Product? categoryfromDB1 = _db.Categories.FirstOrDefault(u=>u.Product21Id==id);
-            //Product? categoryfromDB2 = _db.Categories.Where(u => u.Product21Id == id).FirstOrDefault();
-            if (productFromDB == null)
-            {
-                return NotFound();
-            }
-            return View(productFromDB);
-        }
-        [HttpPost]
-        public IActionResult Edit(Product obj)
-        {
-
-            if (ModelState.IsValid)
-            {
-
-                _unitOfWork.Product.Update(obj);
-                _unitOfWork.Save();
-                TempData["success"] = "Product updated successfully";
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
+       
 
         public IActionResult Delete(int? id)
         {

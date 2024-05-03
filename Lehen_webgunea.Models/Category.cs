@@ -6,7 +6,7 @@ namespace Lehen_webgunea.Models
     public class Category
     {
         [Key]
-        public int Category21Id { get; set; }
+        public int CategoryId { get; set; }
         [Required]
        [MaxLength(30)]
         [DisplayName("Category Name")]

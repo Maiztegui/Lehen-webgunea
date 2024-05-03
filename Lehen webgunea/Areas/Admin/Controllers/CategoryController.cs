@@ -50,7 +50,7 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
                 return NotFound();
 
             }
-            Category? categoryFromDB = _unitOfWork.Category.Get(u => u.Category21Id == id);
+            Category? categoryFromDB = _unitOfWork.Category.Get(u => u.CategoryId == id);
             //Category? categoryfromDB1 = _db.Categories.FirstOrDefault(u=>u.Category21Id==id);
             //Category? categoryfromDB2 = _db.Categories.Where(u => u.Category21Id == id).FirstOrDefault();
             if (categoryFromDB == null)
@@ -81,7 +81,7 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
                 return NotFound();
 
             }
-            Category? categoryFromDB = _unitOfWork.Category.Get(u => u.Category21Id == id);
+            Category? categoryFromDB = _unitOfWork.Category.Get(u => u.CategoryId == id);
 
             if (categoryFromDB == null)
             {
@@ -92,7 +92,7 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category obj = _unitOfWork.Category.Get(u => u.Category21Id == id);
+            Category obj = _unitOfWork.Category.Get(u => u.CategoryId == id);
             if (obj == null)
             {
                 return NotFound();

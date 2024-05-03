@@ -44,7 +44,7 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
             else
             {
                 //update
-                productVM.Product = _unitOfWork.Product.Get(u => u.CategoryId == id);
+                productVM.Product = _unitOfWork.Product.Get(u => u.Id == id);
                 return View(productVM);
 
             }
@@ -56,7 +56,7 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
            
             if (ModelState.IsValid)
             {
-                string wwwRootPath = _webHostEnvironment.WebRootPath // this path gave us the root folder
+                string wwwRootPath = _webHostEnvironment.WebRootPath; // this path gave us the root folder
                 if (file != null)
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName); //this will give us a ramdom name to our file 

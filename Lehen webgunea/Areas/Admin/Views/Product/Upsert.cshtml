@@ -4,14 +4,14 @@
     <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">@(Model.Product.CategoryId!=0? "Update":"Create")  Product</h2>
+                <h2 class="text-white py-2">@(Model.Product.Id!=0? "Update":"Create")  Product</h2>
             </div>
         </div>
     </div>
     <div class="card-body p-4">
 
         <form method="post" class=" row" enctype="multipart/form-data">
-            <input asp-for="Product.CategoryId" hidden />
+            <input asp-for="Product.Id" hidden />
             <div class="border p-3 ">
                
 
@@ -75,12 +75,12 @@
                 </div>
 
                 <div class="form-floating py-2 col-12">
-                    <input type="file" class="form-control order-0 shadow" />
+                    <input type="file" name="file" class="form-control order-0 shadow" />
                     <label asp-for="Product.ImageUrl" class="ms-2"></label> 
                 </div>
                 <div class="row pt-2">
                     <div class="col-6 col-md-3">
-                        @if (Model.Product.CategoryId != 0)
+                        @if (Model.Product.Id != 0)
                         {
                             <button type="submit" class="btn btn-primary form-control">Update</button>
                         }

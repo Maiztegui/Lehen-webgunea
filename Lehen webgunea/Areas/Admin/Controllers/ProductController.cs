@@ -20,7 +20,7 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties:"category").ToList();
             
             return View(objProductList);
         }
@@ -74,15 +74,15 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
                             System.IO.File.Delete(oldImagePath);
                         }
                     }
-
+                    // upload the new image
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
                     {
                         file.CopyTo(fileStream); // this will copy the file in the new location that we added
                     }
-
+                    //update the new image
                     productVM.Product.ImageUrl = @"\images\product\" + fileName;
                 }
-
+                // identify  if is and add or update 
                 if (productVM.Product.Id == 0)
                 {
                     _unitOfWork.Product.Add(productVM.Product);

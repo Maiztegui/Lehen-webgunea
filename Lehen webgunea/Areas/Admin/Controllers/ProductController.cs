@@ -124,7 +124,7 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
             return Json(new { data = objProductList });
             // API to load our data table
         }
-
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
             var productTobeDeleted = _unitOfWork.Product.Get(u =>u.Id == id);

@@ -141,5 +141,16 @@ namespace Lehen_webgunea.Areas.Admin.Controllers
             TempData["success"] = "Product deleted successfully";
             return RedirectToAction("Index");
         }
+
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetAll() 
+        {
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "category").ToList();
+            return Json(new { data = objProductList });
+            // API to load our data table
+        }
+        #endregion
     }
 }

@@ -1,3 +1,5 @@
+using Lehen_webgunea.DataAccess.Repository;
+using Lehen_webgunea.DataAccess.Repository.IRepository;
 using Lehen_webgunea.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,15 +10,24 @@ namespace Lehen_webgunea.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "category");
+            return View(productList);
+        }
+
+        public IActionResult Details(int productId)
+        {
+            Product product = _unitOfWork.Product.Get(u => u.Id== productId, includeProperties: "category"); // it will retrive the products details
+            return View(product);
         }
 
         public IActionResult Privacy()
